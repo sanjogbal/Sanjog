@@ -1,12 +1,17 @@
+/***************************************************************
+ * Objective : To verify whether application displays property details in all properties upon clicking Restore link of selected property details in trash
+ * Author : Sanjog Bal
+ * 
+ **************************************************************/
+
 package com.training.sanity.tests;
 
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
 
-import org.openqa.selenium.By;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
@@ -15,14 +20,17 @@ import org.testng.annotations.Test;
 
 import com.training.generics.ScreenShot;
 import com.training.pom.LoginPOM;
+import com.training.pom.RestorePOM;
+import com.training.pom.TrashPOM;
 import com.training.utility.DriverFactory;
 import com.training.utility.DriverNames;
 
-public class DeleteCategory {
-
+public class RestoreFromTrash_02 {
 	private WebDriver driver;
 	private String baseUrl;
 	private LoginPOM loginPOM;
+	private TrashPOM trashPOM;
+	private RestorePOM restorePOM;
 	private static Properties properties;
 	private ScreenShot screenShot;
 
@@ -37,50 +45,51 @@ public class DeleteCategory {
 	public void setUp() throws Exception {
 		driver = DriverFactory.getDriver(DriverNames.CHROME);
 		loginPOM = new LoginPOM(driver); 
+		trashPOM = new TrashPOM(driver);
+		restorePOM = new RestorePOM(driver);
 		baseUrl = properties.getProperty("baseURL");
 		screenShot = new ScreenShot(driver); 
 		// open the browser 
 		driver.get(baseUrl);
-		Thread.sleep(1000);
-		//login as admin
+		//login
 		loginPOM.sendUserName("admin");
 		loginPOM.sendPassword("admin@123");
-		loginPOM.clickLoginBtn();
-
-		//navigate to Posts
-		driver.findElement(By.id("menu-posts")).click();
-
-		//navigate to Categories
-		driver.findElement(By.xpath("//*[@id=\"menu-posts\"]/ul/li[4]/a")).click();
-		Thread.sleep(1000);
-
+		loginPOM.clickLoginBtn(); 
 	}
-
-	@AfterMethod 
+	
+	@AfterMethod
 	public void tearDown() throws Exception {
 		Thread.sleep(1000);
 		driver.quit();
 	}
 	@Test
-	public void deleteCategory() {
-
-
-		// select category to be deleted
-		driver.findElement(By.id("cb-select-1399")).click(); //Hard coded
-
-		// delete category
-
-		Select bulk = new Select(driver.findElement(By.id("bulk-action-selector-bottom")));
-		bulk.selectByVisibleText("Delete");        
-		driver.findElement(By.xpath("//*[@id=\"doaction2\"]")).click();	
-
-		// assertion
-
-		String actualResult = driver.findElement(By.xpath("//*[@id=\"message\"]/p")).getText();
-		String expectedResult="Categories deleted.";
+	public void restoreFromTrash() throws InterruptedException {
+		
+		
+		//navigate properties - all properties (default)
+		trashPOM.clickProperties();
+		
+		// trash
+		trashPOM.clickTrash();
+		
+		// mouse over property to restore 
+		restorePOM.mouseOver();
+		String title = restorePOM.getTitle(); 
+		
+		// click restore and verify message
+		restorePOM.clickRestore();
+		
+		String actualResult = restorePOM.restoreMsg();
+		String expectedResult="1 post restored from the Trash.";
 		Assert.assertEquals(actualResult, expectedResult);
-
-
-		screenShot.captureScreenShot("Delete Category");
+		
+		// verify under All
+		trashPOM.clickAll();
+		
+		Assert.assertTrue(driver.getPageSource().contains(title),"entry restored");
+		
+		
+		
+		screenShot.captureScreenShot("RestoreFromTrash");
 	}
 }

@@ -13,6 +13,9 @@ public class LoginPOM {
 		PageFactory.initElements(driver, this);
 	}
 	
+	@FindBy(xpath="//*[@id=\"responsive\"]/li[3]")
+	private WebElement loginLink;
+	
 	@FindBy(id="user_login")
 	private WebElement userName; 
 	
@@ -21,6 +24,10 @@ public class LoginPOM {
 	
 	@FindBy(xpath="//*[@value=\"Sign In\"]")
 	private WebElement loginBtn; 
+	
+	public void clickLoginLink() {
+		this.loginLink.click();
+	}
 	
 	public void sendUserName(String userName) {
 		this.userName.clear();

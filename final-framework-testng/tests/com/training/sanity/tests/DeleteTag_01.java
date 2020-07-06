@@ -1,3 +1,9 @@
+/***************************************************************
+ * Objective : To verify whether application allows admin to delete tag from the tag page
+ * Author : Sanjog Bal
+ * 
+ **************************************************************/
+
 package com.training.sanity.tests;
 
 import java.io.FileInputStream;
@@ -14,14 +20,18 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import com.training.generics.ScreenShot;
+import com.training.pom.CategoryPOM;
 import com.training.pom.LoginPOM;
+import com.training.pom.TagPOM;
 import com.training.utility.DriverFactory;
 import com.training.utility.DriverNames;
 
-public class AddTag {
+public class DeleteTag_01 {
 	private WebDriver driver;
 	private String baseUrl;
 	private LoginPOM loginPOM;
+	private CategoryPOM categoryPOM;
+	private TagPOM tagPOM;
 	private static Properties properties;
 	private ScreenShot screenShot;
 
@@ -36,6 +46,8 @@ public class AddTag {
 	public void setUp() throws Exception {
 		driver = DriverFactory.getDriver(DriverNames.CHROME);
 		loginPOM = new LoginPOM(driver); 
+		categoryPOM = new CategoryPOM(driver);
+		tagPOM = new TagPOM(driver);
 		baseUrl = properties.getProperty("baseURL");
 		screenShot = new ScreenShot(driver); 
 		// open the browser 
@@ -47,10 +59,10 @@ public class AddTag {
 		loginPOM.clickLoginBtn();
 
 		//navigate to Posts
-		driver.findElement(By.id("menu-posts")).click();
-
+		categoryPOM.clickPosts();
+		
 		//navigate to Tags
-		driver.findElement(By.xpath("//*[@id=\"menu-posts\"]/ul/li[5]/a")).click();
+		tagPOM.clickTag();
 		Thread.sleep(1000);
 
 	}
@@ -61,26 +73,23 @@ public class AddTag {
 		driver.quit();
 	}
 	@Test
-	public void addTag() {
+	public void deleteTag() {
 
-		// select and populate fields Tag to be deleted
-		String tagname = "test tag 4";   // Hard coded
-		driver.findElement(By.id("tag-name")).sendKeys(tagname); 
-		driver.findElement(By.id("tag-slug")).sendKeys("test slug"); // Hard coded
-		driver.findElement(By.id("tag-description")).sendKeys("this is my test tag"); // Hard coded
-
-		// add Tag and refresh page
-
-		driver.findElement(By.id("submit")).click();
-		driver.navigate().refresh();
+		// select Tag to be deleted
+		tagPOM.clickDelTag(); //Hardcoded
 		
+		// delete Tag
+
+		categoryPOM.selectDelete();	
+		categoryPOM.clickAction();
+
 		// assertion
 
-		
-		String actualResult = driver.findElement(By.linkText("test tag 4")).getText(); // Hard coded
-		Assert.assertEquals(actualResult, tagname);
+		String actualResult = tagPOM.getDelTagMsg();
+		String expectedResult="Tags deleted.";
+		Assert.assertEquals(actualResult, expectedResult);
 
-		screenShot.captureScreenShot("First");
+		screenShot.captureScreenShot("DeleteTag");
 	}
 
 }
