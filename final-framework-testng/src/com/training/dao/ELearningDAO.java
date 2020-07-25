@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import com.training.bean.FeaturesBean;
 import com.training.bean.LoginBean;
 import com.training.connection.GetConnection;
 import com.training.utility.LoadDBDetails;
@@ -27,7 +28,7 @@ public class ELearningDAO {
 		}
 	}
 	
-	public List<LoginBean> getLogins(){
+/*	public List<LoginBean> getLogins(){
 		String sql = properties.getProperty("get.logins"); 
 		
 		GetConnection gc  = new GetConnection(); 
@@ -52,10 +53,39 @@ public class ELearningDAO {
 		}
 		
 		return list; 
+	}*/
+	
+	public List<FeaturesBean> getFeatures(){
+		String sql = properties.getProperty("get.features"); 
+		
+		GetConnection gc  = new GetConnection(); 
+		List<FeaturesBean> list = null;
+		try {
+			gc.ps1 = GetConnection.getMySqlConnection(LoadDBDetails.getDBDetails()).prepareStatement(sql); 
+			list = new ArrayList<FeaturesBean>(); 
+			
+			gc.rs1 = gc.ps1.executeQuery(); 
+			
+			while(gc.rs1.next()) {
+			
+				FeaturesBean temp = new FeaturesBean(); 
+				temp.setName(gc.rs1.getString(1));
+				temp.setSlug(gc.rs1.getString(2));
+				temp.setDescription(gc.rs1.getString(3));
+
+
+				list.add(temp); 
+				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return list; 
 	}
 	
 	public static void main(String[] args) {
-		new ELearningDAO().getLogins().forEach(System.out :: println);
+		new ELearningDAO().getFeatures().forEach(System.out :: println);
 	}
 	
 	

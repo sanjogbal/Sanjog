@@ -39,11 +39,11 @@ public class TrashPOM {
 	private WebElement content;
 	
 	//region 
-	@FindBy(id="in-region-1432")
+	@FindBy(id="in-region-1348")
 	private WebElement region;
 	
 	//feature 
-	@FindBy(id="in-property_feature-1412")
+	@FindBy(id="in-property_feature-1502")
 	private WebElement feature;
 
 

@@ -2,28 +2,45 @@
 <testng-results skipped="0" failed="0" ignored="0" total="1" passed="1">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="36970" started-at="2020-06-30T09:08:50 IST" finished-at="2020-06-30T09:09:27 IST">
+  <suite name="Default suite" duration-ms="42444" started-at="2020-07-26T01:58:01 IST" finished-at="2020-07-26T01:58:43 IST">
     <groups>
     </groups>
-    <test name="Default test" duration-ms="36970" started-at="2020-06-30T09:08:50 IST" finished-at="2020-06-30T09:09:27 IST">
-      <class name="com.training.sanity.tests.AddTag">
-        <test-method status="PASS" signature="setUpBeforeClass()[pri:0, instance:com.training.sanity.tests.AddTag@2a17b7b6]" name="setUpBeforeClass" is-config="true" duration-ms="18" started-at="2020-06-30T09:08:50 IST" finished-at="2020-06-30T09:08:50 IST">
+    <test name="Default test" duration-ms="42444" started-at="2020-07-26T01:58:01 IST" finished-at="2020-07-26T01:58:43 IST">
+      <class name="com.training.sanity.tests.AddMultipleFeatures_DB_03">
+        <test-method status="PASS" signature="setUpBeforeClass()[pri:0, instance:com.training.sanity.tests.AddMultipleFeatures_DB_03@4f063c0a]" name="setUpBeforeClass" is-config="true" duration-ms="34295" started-at="2020-07-26T01:58:01 IST" finished-at="2020-07-26T01:58:35 IST">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUpBeforeClass -->
-        <test-method status="PASS" signature="setUp()[pri:0, instance:com.training.sanity.tests.AddTag@2a17b7b6]" name="setUp" is-config="true" duration-ms="32063" started-at="2020-06-30T09:08:50 IST" finished-at="2020-06-30T09:09:22 IST">
+        <test-method status="PASS" signature="setUp()[pri:0, instance:com.training.sanity.tests.AddMultipleFeatures_DB_03@4f063c0a]" name="setUp" is-config="true" duration-ms="2355" started-at="2020-07-26T01:58:35 IST" finished-at="2020-07-26T01:58:38 IST">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method status="PASS" signature="addTag()[pri:0, instance:com.training.sanity.tests.AddTag@2a17b7b6]" name="addTag" duration-ms="2975" started-at="2020-06-30T09:09:22 IST" finished-at="2020-06-30T09:09:25 IST">
+        <test-method status="PASS" signature="addFeatures(java.lang.String, java.lang.String, java.lang.String)[pri:0, instance:com.training.sanity.tests.AddMultipleFeatures_DB_03@4f063c0a]" name="addFeatures" duration-ms="3356" started-at="2020-07-26T01:58:38 IST" data-provider="db-inputs" finished-at="2020-07-26T01:58:41 IST">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[New Launches]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[launch]]>
+              </value>
+            </param>
+            <param index="2">
+              <value>
+                <![CDATA[New Launches of vilas, apartments, flats]]>
+              </value>
+            </param>
+          </params>
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- addTag -->
-        <test-method status="PASS" signature="tearDown()[pri:0, instance:com.training.sanity.tests.AddTag@2a17b7b6]" name="tearDown" is-config="true" duration-ms="1844" started-at="2020-06-30T09:09:25 IST" finished-at="2020-06-30T09:09:27 IST">
+        </test-method> <!-- addFeatures -->
+        <test-method status="PASS" signature="tearDown()[pri:0, instance:com.training.sanity.tests.AddMultipleFeatures_DB_03@4f063c0a]" name="tearDown" is-config="true" duration-ms="1982" started-at="2020-07-26T01:58:41 IST" finished-at="2020-07-26T01:58:43 IST">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-      </class> <!-- com.training.sanity.tests.AddTag -->
+      </class> <!-- com.training.sanity.tests.AddMultipleFeatures_DB_03 -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
 </testng-results>
